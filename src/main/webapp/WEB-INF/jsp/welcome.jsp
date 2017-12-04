@@ -7,7 +7,7 @@ This is a title
 </head>
 <body>
 
-Welcome  ${name} ! 
+Welcome  ${name}<%--  ! your password is ${password} --%>
 <%-- My first JSP!! Welcome ${name} ! --%>
 </body>
 </html>
