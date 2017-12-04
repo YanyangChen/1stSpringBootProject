@@ -8,6 +8,7 @@ This is a title
 <body>
 
 Welcome  ${name}<%--  ! your password is ${password} --%>
+<a href="/list-todos">Click here</a> for your todos.
 <%-- My first JSP!! Welcome ${name} ! --%>
 </body>
 </html>
