@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cyy.springboot.web.springbootfirstwebapplication.web.service.TodoService;
 import com.cyy.springboot.web.springbootfirstwebapplication.web.service.LoginService;
 // /login => "Hello World"
 @Controller
+@SessionAttributes("name")
 public class TodoController {
 	
 	//Injected automatically
@@ -23,7 +25,8 @@ public class TodoController {
 	@RequestMapping(value= "/list-todos", method = RequestMethod.GET)
 //	@ResponseBody
 	public String showTodos(ModelMap model) {
-		model.put("todos", todoservice.retrieveTodos("cyy"));
+		String namex = (String)model.get("name");
+		model.put("todos", todoservice.retrieveTodos(namex));
 		return "list-todos";
 	
 	}
