@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cyy.springboot.web.springbootfirstwebapplication.web.service.TodoService;
+import com.cyy.springboot.web.springbootfirstwebapplication.web.model.Todo;
 import com.cyy.springboot.web.springbootfirstwebapplication.web.service.LoginService;
 // /login => "Hello World"
 @Controller
@@ -38,6 +39,7 @@ public class TodoController {
 	@RequestMapping(value= "/add-todo", method = RequestMethod.GET)
 //	@ResponseBody
 	public String showAddTodoPage(ModelMap model) {
+		model.addAttribute("todo", new Todo(0,(String)model.get("name"),"",new Date(), false));
 		return "todo";
 	
 	}
@@ -50,13 +52,21 @@ public class TodoController {
 	
 	}
 	
-	@RequestMapping(value= "/add-todo", method = RequestMethod.POST)
-//	@ResponseBody
-	public String addTodo(ModelMap model, @RequestParam String desc) {
-		todoservice.addTodo((String)model.get("name"), desc, new Date(), false);
-		return "redirect:/list-todos";
+//	@RequestMapping(value= "/add-todo", method = RequestMethod.POST)
+////	@ResponseBody
+//	public String addTodo(ModelMap model, @RequestParam String desc) {
+//		todoservice.addTodo((String)model.get("name"), desc, new Date(), false);
+//		return "redirect:/list-todos";
+//	
+//	}
 	
-	}
+	@RequestMapping(value= "/add-todo", method = RequestMethod.POST)
+//@ResponseBody
+public String addTodo(ModelMap model, Todo todo) {
+	todoservice.addTodo((String)model.get("name"), todo.getDesc(), new Date(), false);
+	return "redirect:/list-todos";
+
+}
 	
 }
 
