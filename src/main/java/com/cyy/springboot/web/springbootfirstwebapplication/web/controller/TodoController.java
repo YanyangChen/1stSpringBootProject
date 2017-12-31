@@ -39,12 +39,39 @@ public class TodoController {
 	}
 	
 	
+	
 	@RequestMapping(value= "/add-todo", method = RequestMethod.GET)
 //	Bean -> Form
 	public String showAddTodoPage(ModelMap model) {
 		model.addAttribute("todo", new Todo(0,(String)model.get("name"),"Defaule description",new Date(), false));
 		return "todo";
 	
+	}
+	
+	@RequestMapping(value= "/update-todo", method = RequestMethod.GET)
+//	@ResponseBody
+	public String showUpdateTodoPage(@RequestParam int id, ModelMap model) {
+		Todo todo = todoservice.retrieveTodos(id);
+		model.put("todo", todo);
+		return "todo";
+	
+	}
+	
+	@RequestMapping(value= "/update-todo", method = RequestMethod.POST)
+//	@ResponseBody
+	public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
+		
+		if(result.hasErrors())
+		{
+			return "todo";
+			
+		}
+		
+		todo.setUser((String) model.get("name"));
+		
+		todoservice.updateTodo(todo);
+		return "redirect:/list-todos";
+		
 	}
 	
 	@RequestMapping(value= "/delete-todo", method = RequestMethod.GET)
