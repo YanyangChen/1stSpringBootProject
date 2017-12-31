@@ -1,11 +1,7 @@
-<html>
-<head>
-<title>
-This is a title
-</title>
+<%@ include file="common/header.jspf" %>
+<%@ include file="common/navigation.jspf" %>
 
-</head>
-<body>
+<div class = "container">
 <font color="red">${errormessage}</font>
 <form method="post">
 	Name : <input type="text" name="name" /> 
@@ -14,5 +10,5 @@ This is a title
 </form>
 
 <%-- My first JSP!! Welcome ${name} ! --%>
-</body>
-</html>
+</div>
+<%@ include file="common/footer.jspf" %>
