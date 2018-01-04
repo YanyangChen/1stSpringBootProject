@@ -21,31 +21,31 @@ public class LoginController {
 	//MODEL MVC - model view controller
 	//model is used to pass data from controller to view(jsp)
 	
-	@RequestMapping(value= "/login", method = RequestMethod.GET)
+	@RequestMapping(value= "/", method = RequestMethod.GET)
 //	@ResponseBody
 	public String showLoginMessage(ModelMap model) {
-//		model.put("name", name);
+		model.put("name", "cyy");
 //		System.out.println("name is " + name);
 		
-		return "login";
-	
-	}
-	
-	
-	@RequestMapping(value= "/login", method = RequestMethod.POST)
-//	@ResponseBody
-	public String showWelcomeMessage(ModelMap model, @RequestParam String name, @RequestParam String password) {
-		boolean isValidUser = loginservice.validateUser(name, password);
-		
-		if(!isValidUser)  
-			{
-			
-			model.put("errormessage", "invalid credentials");
-			return "login";}
-		model.put("name", name);
-		model.put("password", password);
-//		System.out.println("name is " + name);
 		return "welcome";
+	
 	}
+	
+	
+//	@RequestMapping(value= "/login", method = RequestMethod.POST)
+////	@ResponseBody
+//	public String showWelcomeMessage(ModelMap model, @RequestParam String name, @RequestParam String password) {
+//		boolean isValidUser = loginservice.validateUser(name, password);
+//		
+//		if(!isValidUser)  
+//			{
+//			
+//			model.put("errormessage", "invalid credentials");
+//			return "login";}
+//		model.put("name", name);
+//		model.put("password", password);
+////		System.out.println("name is " + name);
+//		return "welcome";
+//	}
 }
 
