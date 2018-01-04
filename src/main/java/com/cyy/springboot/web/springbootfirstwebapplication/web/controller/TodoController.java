@@ -89,14 +89,15 @@ public class TodoController {
 		
 	}
 	
-	@RequestMapping(value= "/delete-todo", method = RequestMethod.GET)
-//	@ResponseBody
+	@RequestMapping(value = "/delete-todo", method = RequestMethod.GET)
 	public String deleteTodo(@RequestParam int id) {
+
+		if(id==1)
+			throw new RuntimeException("Something went wrong");
+		
 		todoservice.deleteTodo(id);
 		return "redirect:/list-todos";
-	
 	}
-	
 //	@RequestMapping(value= "/add-todo", method = RequestMethod.POST)
 ////	@ResponseBody
 //	public String addTodo(ModelMap model, @RequestParam String desc) {
