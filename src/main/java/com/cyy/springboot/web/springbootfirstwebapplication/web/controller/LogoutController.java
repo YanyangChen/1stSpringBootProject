@@ -1,6 +1,13 @@
 package com.cyy.springboot.web.springbootfirstwebapplication.web.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +20,7 @@ import com.cyy.springboot.web.springbootfirstwebapplication.web.service.LoginSer
 // /login => "Hello World"
 @Controller
 @SessionAttributes("name")
-public class LoginController {
+public class LogoutController {
 	
 	//Injected automatically
 	@Autowired  //dependent injection
@@ -21,31 +28,15 @@ public class LoginController {
 	//MODEL MVC - model view controller
 	//model is used to pass data from controller to view(jsp)
 	
-	@RequestMapping(value= "/", method = RequestMethod.GET)
-//	@ResponseBody
-	public String showLoginMessage(ModelMap model) {
-		model.put("name", "cyy");
-//		System.out.println("name is " + name);
-		
-		return "welcome";
-	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request,
+			HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/";
 	}
-	
-	
-//	@RequestMapping(value= "/login", method = RequestMethod.POST)
-////	@ResponseBody
-//	public String showWelcomeMessage(ModelMap model, @RequestParam String name, @RequestParam String password) {
-//		boolean isValidUser = loginservice.validateUser(name, password);
-//		
-//		if(!isValidUser)  
-//			{
-//			
-//			model.put("errormessage", "invalid credentials");
-//			return "login";}
-//		model.put("name", name);
-//		model.put("password", password);
-////		System.out.println("name is " + name);
-//		return "welcome";
-//	}
 }
 
