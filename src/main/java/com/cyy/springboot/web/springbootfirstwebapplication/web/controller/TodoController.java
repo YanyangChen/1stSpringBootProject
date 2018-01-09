@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.cyy.springboot.web.springbootfirstwebapplication.web.service.TodoService;
 import com.cyy.springboot.web.springbootfirstwebapplication.web.model.Todo;
 import com.cyy.springboot.web.springbootfirstwebapplication.web.service.LoginService;
+import com.cyy.springboot.web.springbootfirstwebapplication.web.service.TodoRepository;
 // /login => "Hello World"
 @Controller
 @SessionAttributes("name")
@@ -30,6 +31,9 @@ public class TodoController {
 	//Injected automatically
 	@Autowired  //dependent injection
 	TodoService todoservice; //= new LoginService();
+	
+	@Autowired
+	TodoRepository repository;
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -114,7 +118,9 @@ public String addTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
 			return "todo";
 			
 		}
-	todoservice.addTodo(getLoggedInUserName(model), todo.getDesc(), todo.getTargetDate(), false);
+		todo.setUser(getLoggedInUserName(model));
+		repository.save(todo);
+//	todoservice.addTodo(getLoggedInUserName(model), todo.getDesc(), todo.getTargetDate(), false);
 	return "redirect:/list-todos";
 
 }

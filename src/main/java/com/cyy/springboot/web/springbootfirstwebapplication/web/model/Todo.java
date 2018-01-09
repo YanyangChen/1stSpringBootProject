@@ -2,10 +2,19 @@
 package com.cyy.springboot.web.springbootfirstwebapplication.web.model;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+
+@Entity
 public class Todo {
 	//use alt + shift + s to auto generate functions
+	@Id
+	@GeneratedValue
     private int id;
     private String user;
     
