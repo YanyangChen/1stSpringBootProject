@@ -29,8 +29,8 @@ import com.cyy.springboot.web.springbootfirstwebapplication.web.service.TodoRepo
 public class TodoController {
 	
 	//Injected automatically
-	@Autowired  //dependent injection
-	TodoService todoservice; //= new LoginService();
+//	@Autowired  //dependent injection
+//	TodoService todoservice; //= new LoginService();
 	
 	@Autowired
 	TodoRepository repository;
@@ -48,7 +48,8 @@ public class TodoController {
 //	@ResponseBody
 	public String showTodos(ModelMap model) {
 		String namex = getLoggedInUserName(model);
-		model.put("todos", todoservice.retrieveTodos(namex));
+		model.put("todos", repository.findByUser(namex));
+//		model.put("todos", todoservice.retrieveTodos(namex));
 		return "list-todos";
 	
 	}
@@ -70,7 +71,8 @@ public class TodoController {
 	@RequestMapping(value= "/update-todo", method = RequestMethod.GET)
 //	@ResponseBody
 	public String showUpdateTodoPage(@RequestParam int id, ModelMap model) {
-		Todo todo = todoservice.retrieveTodos(id);
+		Todo todo = repository.findOne(id);
+//		Todo todo = todoservice.retrieveTodos(id);
 		model.put("todo", todo);
 		return "todo";
 	
@@ -87,8 +89,8 @@ public class TodoController {
 		}
 		
 		todo.setUser(getLoggedInUserName(model));
-		
-		todoservice.updateTodo(todo);
+		repository.save(todo);
+//		todoservice.updateTodo(todo);
 		return "redirect:/list-todos";
 		
 	}
@@ -96,10 +98,10 @@ public class TodoController {
 	@RequestMapping(value = "/delete-todo", method = RequestMethod.GET)
 	public String deleteTodo(@RequestParam int id) {
 
-		if(id==1)
-			throw new RuntimeException("Something went wrong");
-		
-		todoservice.deleteTodo(id);
+//		if(id==1)
+//			throw new RuntimeException("Something went wrong");
+		repository.delete(id);
+//		todoservice.deleteTodo(id);
 		return "redirect:/list-todos";
 	}
 //	@RequestMapping(value= "/add-todo", method = RequestMethod.POST)
