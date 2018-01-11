@@ -19,7 +19,7 @@ public class Todo {
     private String user;
     
     @Size(min=10, message="Enter at least 10 characters...")
-    private String desc;
+    private String descr;
     private Date targetDate;
     private boolean isDone;
 
@@ -27,12 +27,12 @@ public class Todo {
     	super();
     }
     
-    public Todo(int id, String user, String desc, Date targetDate,
+    public Todo(int id, String user, String descr, Date targetDate,
             boolean isDone) {
         super();
         this.id = id;
         this.user = user;
-        this.desc = desc;
+        this.descr = descr;
         this.targetDate = targetDate;
         this.isDone = isDone;
     }
@@ -53,12 +53,12 @@ public class Todo {
         this.user = user;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getdescr() {
+        return descr;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setdescr(String descr) {
+        this.descr = descr;
     }
 
     public Date getTargetDate() {
@@ -106,8 +106,8 @@ public class Todo {
     @Override
     public String toString() {
         return String.format(
-                "Todo [id=%s, user=%s, desc=%s, targetDate=%s, isDone=%s]", id,
-                user, desc, targetDate, isDone);
+                "Todo [id=%s, user=%s, descr=%s, targetDate=%s, isDone=%s]", id,
+                user, descr, targetDate, isDone);
     }
 
 }
