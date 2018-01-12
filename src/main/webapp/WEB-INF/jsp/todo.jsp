@@ -20,6 +20,14 @@
 	<form:errors path="targetDate" cssClass="text-warning"></form:errors>
 	</fieldset>
 	
+	<fieldset class="form-group">
+	<form:label path="done">IS Done :</form:label>
+<!-- 	"required" doesn't work in safari -->
+	<form:input path="done" type="text" 
+	class="form-control" required="required"/>
+	<form:errors path="done" cssClass="text-warning"></form:errors>
+	</fieldset>
+	
 	 <button type="submit" class="btn btn-success">Add</button>
 </form:form>
 </div>

@@ -1,7 +1,9 @@
 package com.cyy.springboot.web.springbootfirstwebapplication.web.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -44,6 +46,14 @@ public class TodoController {
 	//MODEL MVC - model view controller
 	//model is used to pass data from controller to view(jsp)
 	
+	 Comparator<Todo> cii = new Comparator<Todo>(){
+			
+			@Override
+			public int compare(Todo i,Todo j) {
+				
+				return -i.getId() + j.getId();
+			}};
+	
 	@RequestMapping(value= "/list-todos", method = RequestMethod.GET)
 //	@ResponseBody
 	public String showTodos(ModelMap model) {
@@ -63,7 +73,7 @@ public class TodoController {
 	@RequestMapping(value= "/add-todo", method = RequestMethod.GET)
 //	Bean -> Form
 	public String showAddTodoPage(ModelMap model) {
-		model.addAttribute("todo", new Todo(0,getLoggedInUserName(model),"Defaule description",new Date(), false));
+		model.addAttribute("todo", new Todo(0,getLoggedInUserName(model),"Default description",new Date(), false));
 		return "todo";
 	
 	}
@@ -89,6 +99,7 @@ public class TodoController {
 		}
 		
 		todo.setUser(getLoggedInUserName(model));
+		
 		repository.save(todo);
 //		todoservice.updateTodo(todo);
 		return "redirect:/list-todos";
@@ -121,6 +132,10 @@ public String addTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
 			
 		}
 		todo.setUser(getLoggedInUserName(model));
+//		List<Todo> todoss;
+//		todoss = repository.findByUser(getLoggedInUserName(model));
+//		todoss.sort(cii);
+//		todo.setId(todoss.get(0).getId() + 1);
 		repository.save(todo);
 //	todoservice.addTodo(getLoggedInUserName(model), todo.getDesc(), todo.getTargetDate(), false);
 	return "redirect:/list-todos";
